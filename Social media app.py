@@ -25,4 +25,64 @@ class User:
                 print(f" You are now following {other_user.username}!")
             else:
                 print("  Cannot follow yourself!")
-Class Social Media App:
+class SocialMediaApp:
+    #Intialize app with empty user database
+    def __inti__(self):
+      self.users={}
+    #Register a new user
+    def register_user(self):
+        username  =input("Enter username")
+        if username in self.users:
+            print (" Username already exists!")
+        else:
+            self.users[username] =User(username)
+            print (f" User{username} registered!")
+    #Make a post for a user
+    def make_post(self):
+         username=input("Enter username:")
+         if username in self.users:
+             content =input("Enter your post(you cna use emojis  ):")
+             self.users[username].add_post(content)
+         else:
+             print(" User not found!")
+    #View a user's profile
+    def view_profile(self):
+        username = input("Enter username:")
+        if username in self.users:
+            self.users[username].view_profile()
+        else:
+            print("  User not found!")
+    # Follow another user
+    def follow_user(self):
+        follower = input("Enter your username:")
+        followee = input("Enter username to follow:")
+        if follower in self.users and followee in self.users:
+            self.users[follower].follow(self.users[followee])
+        else:
+            print(" User(s) not found!")
+    #Display command menu
+    def menu(self):
+      while True:
+          print("\n--- Social Media App ---")
+          print("1. Register User ")
+          print("2. Make Post ")
+          print("3. View Profile ")
+          print("4. Follow User ")
+          print("5. Exit ")
+          choice = input("Choose an option:")
+          if choice == "1":
+              self.register_user()
+          elif choice == "2":
+              self.make_post()
+          elif choice == "3":
+              self.view_profile()
+          elif choice == "4":
+              self.follow_user()
+          elif choice == "5":
+              print(" GoodBye!")
+              break
+          else:
+              print("Invaild choice")
+# Run the app
+app = SocialMediaApp()
+app.menu()
